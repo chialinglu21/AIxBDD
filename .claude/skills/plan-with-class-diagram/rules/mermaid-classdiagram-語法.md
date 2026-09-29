@@ -22,4 +22,3 @@ class ClassName {
 - module → 視為一個 class 節點，對外的 exported functions 列為 `+method()`
 - interface／type → 節點頂端加 `<<interface>>` 或 `<<type>>` 標記
 - struct（如 Go）→ 視為 class 節點，欄位列為 `+field`
-</content>
