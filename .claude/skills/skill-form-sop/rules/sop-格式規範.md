@@ -19,7 +19,7 @@
 
 ## 細節的去處
 
-- SOP 只留骨幹。實作細節、檢查清單、schema、範本放 `rules/` 或 `references/`，由 Phase 1 的 READ 步驟按需載入。
+- SOP 只留骨幹。實作細節、檢查清單、schema、範本放 `rules/` 或 `references/`。
 - 已有 script、subagent 或其他 skill 能完成的步驟用 DELEGATE，寫出對象名稱即可，不在 SOP 裡展開實作。
 
 ## 驗收
