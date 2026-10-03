@@ -26,33 +26,65 @@
 4. CHECK 逐條對照掛載規則、SOP 格式規範與撰寫原則，不合就退回步驟 2 修改。
 ```
 
-# Rule 2 - 規範的對象相同才算同一個主題
+# Rule 2 - 規範的對象相同就追加到該 RuleFile
 
 - 強度：必須
-- 新規則與既有 RuleFile 規範的是同一個對象的同一個面向，才算主題相同。
+- 新規則與比對範圍內某份 RuleFile 規範同一個對象的同一個面向，才算主題相同。
 - 只是把關同一個步驟、或同一行 READ 進來，不代表主題相同。
+- 主題相同時追加到該檔案，不另開新檔；同一個主題的規則只放在一份 RuleFile 裡。
 
 ## Good Example
 
-- Phase 2 步驟 2 同時 READ 語法規範與關係選用原則。新規則「只有 is-a 關係才畫繼承」規範的是選用哪種關係，和 `類別關係選用原則.md` 同主題，所以追加到這份檔案。
+- 為 Phase 2 步驟 2 展開「只有 is-a 關係才畫繼承」，步驟 1 同一行 READ 了語法規範與關係選用原則。新規則規範的是選用哪種關係，和 `類別關係選用原則.md` 同主題，所以追加到這份檔案，SOP 的 READ 不用改。
 
 ```markdown
 1. READ `rules/mermaid-classdiagram-語法.md` 與 `rules/類別關係選用原則.md`。
 2. WRITE 依語法規範與關係選用原則，將 Phase 1 得出的類別組成畫成 mermaid classDiagram，存入 `docs/design/<功能名稱>-class-diagram.md`。
 ```
 
-## Bad Example
-
-- 同一條「只有 is-a 關係才畫繼承」，因為 `mermaid-classdiagram-語法.md` 排在同一行 READ 的第一個，就追加進去，語法規範裡混入了關係選用的判斷。
-
 ```markdown
-# Rule 3 - 只有 is-a 關係才畫繼承
-
-- 強度：必須
-- 子類別必須能完整替代父類別，才用 `<|--` 連線。
+plan-with-class-diagram/rules/
+├── mermaid-classdiagram-語法.md
+├── 實作一致性核對規則.md
+├── 類別設計原則.md
+└── 類別關係選用原則.md      ← 追加 Rule N+1
 ```
 
-# Rule 3 - 新檔名以規範的對象命名
+## Bad Example
+
+- 同一條規則因為 `mermaid-classdiagram-語法.md` 排在同一行 READ 的第一個，就追加進去，語法規範裡混入了關係選用的判斷。另開 `繼承使用原則.md` 也一樣錯：關係選用的判斷會分散在兩份檔案裡。
+
+```markdown
+plan-with-class-diagram/rules/
+├── mermaid-classdiagram-語法.md  ← 追加 Rule N+1
+├── 實作一致性核對規則.md
+├── 類別設計原則.md
+└── 類別關係選用原則.md
+```
+
+# Rule 3 - 新開的 RuleFile 放在目標 skill 的 rules/ 底下
+
+- 強度：必須
+- 新開 RuleFile 的路徑固定為 `<目標 skill>/rules/<檔名>.md`。
+- 不放在本 skill、其他 skill 或 repo 的其他目錄，否則目標 SOP 用 `rules/<檔名>.md` READ 時會找不到檔案。
+
+## Good Example
+
+- 為 `plan-with-class-diagram` Phase 3 的 CHECK 新開的檔案，放在該 skill 自己的 `rules/` 底下，SOP 的 `READ rules/實作一致性核對規則.md` 可以直接讀到。
+
+```markdown
+.claude/skills/plan-with-class-diagram/rules/實作一致性核對規則.md
+```
+
+## Bad Example
+
+- 同一份檔案被放在執行展開的 `skill-derive-rule/rules/` 底下，`plan-with-class-diagram` 的 SOP 照 `rules/實作一致性核對規則.md` 去讀時找不到檔案。
+
+```markdown
+.claude/skills/skill-derive-rule/rules/實作一致性核對規則.md
+```
+
+# Rule 4 - 新檔名以規範的對象命名
 
 - 強度：建議
 - 新開 RuleFile 的檔名用繁中名詞短語寫出規範的對象，例如 `類別設計原則`、`實作一致性核對規則`。
@@ -76,7 +108,7 @@
 4. CHECK 每完成一個類別，依 phase3-step3 核對其是否符合類別圖定義的職責與介面。
 ```
 
-# Rule 4 - 新檔名與既有 RuleFile 重名時改為追加
+# Rule 5 - 新檔名與既有 RuleFile 重名時改為追加
 
 - 強度：必須
 - 定出新檔名後，檢查目標 skill 的 `rules/` 是否已有同名檔案。
@@ -105,57 +137,4 @@ plan-with-class-diagram/rules/
 ├── 類別設計原則.md
 ├── 類別設計原則-2.md
 └── 類別關係選用原則.md
-```
-
-# Rule 5 - 主題相同就追加到該 RuleFile
-
-- 強度：必須
-- 比對範圍內有同主題的 RuleFile 時，新規則追加到該檔案，不另開新檔。
-- 同一個主題的規則只放在一份 RuleFile 裡。
-
-## Good Example
-
-- 為 Phase 2 步驟 2 展開「只有 is-a 關係才畫繼承」，和 `類別關係選用原則.md` 同主題，所以追加到這份檔案，SOP 的 READ 不用改。
-
-```markdown
-plan-with-class-diagram/rules/
-├── mermaid-classdiagram-語法.md
-├── 實作一致性核對規則.md
-├── 類別設計原則.md
-└── 類別關係選用原則.md      ← 追加 Rule N+1
-```
-
-## Bad Example
-
-- 同一條規則另開 `繼承使用原則.md`，關係選用的判斷分散在兩份檔案裡，Phase 2 步驟 1 還得多 READ 一份。
-
-```markdown
-plan-with-class-diagram/rules/
-├── mermaid-classdiagram-語法.md
-├── 實作一致性核對規則.md
-├── 類別設計原則.md
-├── 類別關係選用原則.md
-└── 繼承使用原則.md
-```
-
-# Rule 6 - 新開的 RuleFile 放在目標 skill 的 rules/ 底下
-
-- 強度：必須
-- 新開 RuleFile 的路徑固定為 `<目標 skill>/rules/<檔名>.md`。
-- 不放在本 skill、其他 skill 或 repo 的其他目錄，否則目標 SOP 用 `rules/<檔名>.md` READ 時會找不到檔案。
-
-## Good Example
-
-- 為 `plan-with-class-diagram` Phase 3 的 CHECK 新開的檔案，放在該 skill 自己的 `rules/` 底下，SOP 的 `READ rules/實作一致性核對規則.md` 可以直接讀到。
-
-```markdown
-.claude/skills/plan-with-class-diagram/rules/實作一致性核對規則.md
-```
-
-## Bad Example
-
-- 同一份檔案被放在執行展開的 `skill-derive-rule/rules/` 底下，`plan-with-class-diagram` 的 SOP 照 `rules/實作一致性核對規則.md` 去讀時找不到檔案。
-
-```markdown
-.claude/skills/skill-derive-rule/rules/實作一致性核對規則.md
 ```
