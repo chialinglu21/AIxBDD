@@ -8,16 +8,6 @@
 - `..>` 依賴（dependency）
 - `..|>` 實作介面（interface realization）
 
-## 節點標記
-```
-class ClassName {
-  +publicField
-  -privateField
-  +publicMethod()
-  -privateMethod()
-}
-```
-
 ## 非物件導向專案的比擬方式
 - module → 視為一個 class 節點，對外的 exported functions 列為 `+method()`
 - interface／type → 節點頂端加 `<<interface>>` 或 `<<type>>` 標記

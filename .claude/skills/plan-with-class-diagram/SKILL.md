@@ -17,8 +17,8 @@ description: 當使用者明確要求在開發前先用類別圖提案（例如�
 
 ## Phase 2 — 產出類別圖提案並確認
 
-1. READ `rules/mermaid-classdiagram-語法.md` 與 `rules/類別關係選用原則.md`。
-2. WRITE 依語法規範與關係選用原則，將 Phase 1 得出的類別組成畫成 mermaid classDiagram，存入 `docs/design/<功能名稱>-class-diagram.md`。
+1. READ `rules/mermaid-classdiagram-語法.md`、`rules/類別關係選用原則.md`、`templates/class-diagram.md` 與 `templates/class-diagram.example.md`。
+2. WRITE 依語法規範、關係選用原則與 class-diagram 樣板，複製骨架並參照範例填入 Phase 1 得出的類別組成，存入 `docs/design/<功能名稱>-class-diagram.md`。
 3. REPORT 向使用者展示類別圖與各類別的職責、彼此關係。
 4. ASK 使用者是否核准此類別圖，取得核准才進入 Phase 3。
    - 若不核准 → 退回步驟 2，依回饋調整類別圖後重新提案。
