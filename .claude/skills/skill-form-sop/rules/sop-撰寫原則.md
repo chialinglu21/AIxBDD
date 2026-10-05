@@ -1,8 +1,9 @@
-# Rule 1 - 判準、檢查清單、schema、範本放 rules/ 或 references/
+# Rule 1 - 判準、檢查清單、schema 放 rules/ 或 references/，樣板放 templates/
 
 - 強度：必須
 - SOP 只留骨幹：做什麼、依據哪份文件、產出什麼。
-- 判準、檢查清單、schema、範本寫進 `rules/` 或 `references/`，SOP 步驟只寫 READ 該文件、再「依 <文件名>」執行。
+- 判準、檢查清單、schema 寫進 `rules/` 或 `references/`；產出檔案的樣板寫進 `templates/`，骨架與範例各一份。
+- SOP 步驟只寫 READ 該文件、再「依 <文件名>」執行。
 
 ## Good Example
 
